@@ -27,6 +27,8 @@ Rename the `.env.example` to `.env`
 mv .env.example .env
 ```
 
+**JobStore will be handled later(memory), it will work without the scheduler with the current configurations**
+
 ## Well, how do I get my tokens?
 
 #### For [IRC_TOKEN](https://twitchapps.com/tmi/)

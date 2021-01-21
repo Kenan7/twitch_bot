@@ -1,42 +1,31 @@
-from os import environ
+import logging as log
+import threading
 
-from twitchio.ext import commands
+from apscheduler.schedulers.background import BackgroundScheduler
 
+from bot import TwitchBot
+from scheduler import SchedulerConfig
+from tasks import data_mapper
 
-class Bot(commands.Bot):
-    def __init__(self):
-        self.nick = "gecEFT"
-        super().__init__(
-            irc_token=environ["irc_token"],
-            client_id=environ["client_id"],
-            api_token=environ["api_token"],
-            nick=environ["nick"],
-            prefix="!",
-            initial_channels=["kenan7"],
+try:
+    sched = BackgroundScheduler(
+        job_stores=SchedulerConfig.SCHEDULER_JOBSTORES,
+        job_defaults=SchedulerConfig.SCHEDULER_JOB_DEFAULTS,
+        executors=SchedulerConfig.SCHEDULER_EXECUTORS,
+    )
+
+    sched.start()
+    threading.Thread(
+        target=sched.add_job(
+            data_mapper,
+            trigger="interval",
+            seconds=10,
+            id="job_periodic",
+            replace_existing=True,
         )
+    ).start()
 
-    # Events don't need decorators when subclassed
-    async def event_ready(self):
-        print(f"Ready | {self.nick}")
-
-    async def event_message(self, message):
-        print(f"Received command: {message.content}")
-        await self.handle_commands(message)
-
-    # Commands use a decorator...
-    @commands.command(name="test")
-    async def my_command(self, ctx):
-        message = f"Hello {ctx.author.name}!"
-        print(f"Sent message: {message}")
-        await ctx.send(message)
-
-    @commands.event
-    async def event_command_error(ctx, err):
-        if type(err) != commands.errors.BadArgument:
-            pass
-        else:
-            print("Command was given a bad argument, ignoring errors")
-
-
-bot = Bot()
-bot.run()
+    bot = TwitchBot()
+    threading.Thread(target=bot.run()).start()
+except:
+    print("Error: unable to start thread")
