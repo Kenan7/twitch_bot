@@ -20,17 +20,18 @@ pip install git+https://github.com/TwitchIO/TwitchIO.git
 ```
 
 
-# Configration
+# Configuration
 
 Rename the `.env.example` to `.env`
 ```bash
 mv .env.example .env
 ```
 
-## Well how do I get my tokens?
+## Well, how do I get my tokens?
 
 #### For [IRC_TOKEN](https://twitchapps.com/tmi/)
 
 #### For [CLIENT_ID](https://dev.twitch.tv/console/apps)
 Create new app in [twitch dev console](https://dev.twitch.tv/console/apps) first. Then you will get [CLIENT_ID](https://dev.twitch.tv/console/apps)
 
+#### Nick is actually your channel name if you did not create new account for your bot. If you did, then there you go.
