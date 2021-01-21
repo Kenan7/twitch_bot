@@ -1,0 +1,14 @@
+aiohttp==3.7.3
+APScheduler==3.7.0
+async-timeout==3.0.1
+attrs==20.3.0
+chardet==3.0.4
+idna==3.1
+multidict==5.1.0
+pytz==2020.5
+six==1.15.0
+twitchio @ git+https://github.com/TwitchIO/TwitchIO.git@cd6c97b8408772d0d5f14ce082ac25d8b9c4ec51
+typing-extensions==3.7.4.3
+tzlocal==2.1
+websockets==8.1
+yarl==1.6.3

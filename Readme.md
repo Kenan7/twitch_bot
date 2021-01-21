@@ -16,7 +16,7 @@ Activate the virtual environment
 ```
 Install the dependencies
 ```bash
-pip install git+https://github.com/TwitchIO/TwitchIO.git
+pip install -r requirements.txt
 ```
 
 
